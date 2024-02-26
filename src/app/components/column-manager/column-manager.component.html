@@ -1,1 +1,57 @@
-<p>column-manager works!</p>
+<div class="dialog-container">
+  <div class="dialog-header">
+    <h1 class="dialog-title text-primary">column manager</h1>
+
+    <div class="dialog-action">
+      <button cdkFocusInitial (click)="updateColumn()" class="btn btn-primary">Update</button>
+      <button class="close-button bg-transparent border-0 d-flex" [mat-dialog-close]="true">
+        <mat-icon class="close-icon text-muted">close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="dialog-body">
+    <p>What's your favorite animal?</p>
+    <div cdkDropListGroup>
+      <div class="row">
+        <div class="col-lg-6">
+          <h2 class="list-title">Disable</h2>
+          <div
+            cdkDropList
+            #hiddenList="cdkDropList"
+            [cdkDropListData]="hidden"
+            class="list-content"
+            [cdkDropListConnectedTo]="[visibleLIst]"
+            (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let item of hidden;let i =index">
+              <div class="list-content-box" cdkDrag>
+                <img src="assets/icons/grip-vertical.svg" class="grip-vertical">
+                <div class="item"><span *ngIf="editingItemIndex !== i"
+                                        (dblclick)="toggleEditMode(i)">{{ item.name }}</span>
+                  <input #editInput *ngIf="editingItemIndex === i" type="text" [(ngModel)]="item.name"
+                         class="form-control border-0 bg-white" autofocus></div>
+                <img src="assets/icons/pen-to-square.svg" (click)="toggleEditMode(i)" class="p-cursor">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h2 class="list-title">Visible</h2>
+          <div
+            cdkDropList
+            #visibleLIst="cdkDropList"
+            [cdkDropListData]="column"
+            class="list-content"
+            (cdkDropListDropped)="drop($event)">
+            @for (item of column; track item) {
+            <div class="list-content-box" cdkDrag>
+    <img src="assets/icons/grip-vertical.svg">
+      <div class="item"></div>
+  <img src="assets/icons/pen-to-square.svg">
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
