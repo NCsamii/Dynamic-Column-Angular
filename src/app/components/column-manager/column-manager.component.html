@@ -17,19 +17,19 @@
           <h2 class="list-title">Disable</h2>
           <div
             cdkDropList
-            #hiddenList="cdkDropList"
-            [cdkDropListData]="hidden"
+            #disableList="cdkDropList"
+            [cdkDropListData]="disable"
             class="list-content"
-            [cdkDropListConnectedTo]="[visibleLIst]"
+            [cdkDropListConnectedTo]="[visibleList]"
             (cdkDropListDropped)="drop($event)">
-            <div *ngFor="let item of hidden;let i =index">
+            <div *ngFor="let item of disable;let i =index">
               <div class="list-content-box" cdkDrag>
                 <img src="assets/icons/grip-vertical.svg" class="grip-vertical">
-                <div class="item"><span *ngIf="editingItemIndex !== i"
-                                        (dblclick)="toggleEditMode(i)">{{ item.name }}</span>
-                  <input #editInput *ngIf="editingItemIndex === i" type="text" [(ngModel)]="item.name"
-                         class="form-control border-0 bg-white" autofocus></div>
-                <img src="assets/icons/pen-to-square.svg" (click)="toggleEditMode(i)" class="p-cursor">
+                <div class="item"><span *ngIf="disableItemIndex !== i"
+                                        (dblclick)="toggleEditModeDisable(i)">{{ item.name }}</span>
+                  <input *ngIf="disableItemIndex === i" type="text" [(ngModel)]="item.name"
+                         class="form-control border-0 bg-white" appClickOutside (clickOutside)="disableItemIndex = -1" #disableInput></div>
+                <img src="assets/icons/pen-to-square.svg" (click)="toggleEditModeDisable(i)" class="p-cursor">
               </div>
             </div>
           </div>
@@ -38,17 +38,20 @@
           <h2 class="list-title">Visible</h2>
           <div
             cdkDropList
-            #visibleLIst="cdkDropList"
-            [cdkDropListData]="column"
+            #visibleList="cdkDropList"
+            [cdkDropListData]="visible"
             class="list-content"
             (cdkDropListDropped)="drop($event)">
-            @for (item of column; track item) {
-            <div class="list-content-box" cdkDrag>
-    <img src="assets/icons/grip-vertical.svg">
-      <div class="item"></div>
-  <img src="assets/icons/pen-to-square.svg">
+            <div *ngFor="let item of visible;let i =index">
+              <div class="list-content-box" cdkDrag>
+                <img src="assets/icons/grip-vertical.svg" class="grip-vertical">
+                <div class="item"><span *ngIf="visibleItemIndex !== i"
+                                        (dblclick)="toggleEditModeVisible(i)">{{ item.name }}</span>
+                  <input #visibleInput *ngIf="visibleItemIndex === i" type="text" [(ngModel)]="item.name"
+                         class="form-control border-0 bg-white" appClickOutside (clickOutside)="visibleItemIndex = -1"></div>
+                <img src="assets/icons/pen-to-square.svg" (click)="toggleEditModeVisible(i)" class="p-cursor">
               </div>
-            }
+            </div>
           </div>
         </div>
       </div>

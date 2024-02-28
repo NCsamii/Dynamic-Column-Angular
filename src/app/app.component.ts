@@ -13,5 +13,9 @@ export class AppComponent {
   }
   openModal() {
     const ref = this.matDialog.open(ColumnManagerComponent , { width:'60%'})
+    ref.backdropClick().subscribe(() => {
+      console.log(23)
+      return;
+    })
   }
 }

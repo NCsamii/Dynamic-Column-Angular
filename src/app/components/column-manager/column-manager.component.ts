@@ -7,30 +7,23 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag
   styleUrl: './column-manager.component.scss'
 })
 export class ColumnManagerComponent implements OnInit {
-  @Input() column: any[] = [
+  @Input() visible: any[] = [
     {id: 1, name: 'Item 1', selected: false},
     {id: 2, name: 'Item 2', selected: false},
     {id: 3, name: 'Item 3', selected: false}
   ]
-  @Input() hidden: any[] = [
+  @Input() disable: any[] = [
     {id: 1, name: 'Item 1', selected: false},
     {id: 2, name: 'Item 2', selected: false},
     {id: 3, name: 'Item 3', selected: false}
   ]
   @Output() visibleItems = new EventEmitter
   @Output() hiddenItems = new EventEmitter
-  @ViewChild('editInput') editInput!: ElementRef;
-  todo = [
-    {id: 1, name: 'Item 1', selected: false},
-    {id: 2, name: 'Item 2', selected: false},
-    {id: 3, name: 'Item 3', selected: false}
-  ]
-  done = [
-    {id: 1, name: 'Item 1', selected: false},
-    {id: 2, name: 'Item 2', selected: false},
-    {id: 3, name: 'Item 3', selected: false}
-  ]
-  editingItemIndex: number = -1;
+  @ViewChild('visibleInput') visibleInput!: ElementRef;
+  @ViewChild('disableInput') disableInput!: ElementRef;
+  disableItemIndex: number = -1;
+  visibleItemIndex: number = -1;
+
   constructor() {
   }
 
@@ -53,13 +46,19 @@ export class ColumnManagerComponent implements OnInit {
       );
     }
   }
-  toggleEditMode(index: number) {
-    this.editingItemIndex = index;
+
+  toggleEditModeDisable(index: number) {
+    this.disableItemIndex = index;
     setTimeout(() => {
-      this.editInput.nativeElement.focus();
-    });
+      this.disableInput.nativeElement.focus();
+    }, 1000);
   }
-  test() {
-    console.log(this.hidden)
+
+  toggleEditModeVisible(index: number) {
+    this.visibleItemIndex = index;
+    setTimeout(() => {
+      this.visibleInput.nativeElement.focus();
+    });
+
   }
 }
