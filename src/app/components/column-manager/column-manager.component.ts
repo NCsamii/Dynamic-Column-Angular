@@ -7,20 +7,17 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag
   styleUrl: './column-manager.component.scss'
 })
 export class ColumnManagerComponent implements OnInit {
-  @Input() visible: any[] = [
-    {id: 1, name: 'Item 1', selected: false},
-    {id: 2, name: 'Item 2', selected: false},
-    {id: 3, name: 'Item 3', selected: false}
-  ]
-  @Input() disable: any[] = [
-    {id: 1, name: 'Item 1', selected: false},
-    {id: 2, name: 'Item 2', selected: false},
-    {id: 3, name: 'Item 3', selected: false}
-  ]
+  @Input() set columns(cols: any) {
+    this.visible = cols
+  }
+
+  visible: any[] = []
+  @Input()  disable:any[] = []
   @Output() visibleItems = new EventEmitter
   @Output() hiddenItems = new EventEmitter
   @ViewChild('visibleInput') visibleInput!: ElementRef;
   @ViewChild('disableInput') disableInput!: ElementRef;
+
   disableItemIndex: number = -1;
   visibleItemIndex: number = -1;
 
@@ -31,10 +28,11 @@ export class ColumnManagerComponent implements OnInit {
   }
 
   updateColumn() {
-
+    this.visibleItems.emit(this.visible)
+    this.hiddenItems.emit(this.disable)
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: any) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {

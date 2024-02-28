@@ -13,6 +13,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {SharedModule} from "./shared/shared.module";
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {SharedModule} from "./shared/shared.module";
     CdkDropList,
     CdkDrag,
     NgbModule,
-    SharedModule
+    SharedModule,
+    MatTableModule
 
   ],
   providers: [
